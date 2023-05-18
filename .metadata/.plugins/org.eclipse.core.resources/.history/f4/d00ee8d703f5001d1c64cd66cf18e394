@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Restaurant Register</title>
+        <style>
+      body {
+        background-color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      h1 {
+        color: #222222;
+        margin-bottom: 20px;
+      }
+      p {
+        color: #666666;
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        display: inline-block;
+        margin: 0 10px;
+      }
+      a {
+        text-decoration: none;
+        color: #0077c9;
+        font-weight: bold;
+        background-color: #dddddd;
+        padding: 10px 20px;
+        border-radius: 4px;
+      }
+      form {
+        border: 1px solid #dddddd;
+        padding: 20px;
+        border-radius: 4px;
+      }
+      form p {
+        margin-bottom: 10px;
+      }
+      form input[type="text"], form input[type="number"] {
+        padding: 10px;
+        width: 200px;
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+      }
+      form select {
+        padding: 10px;
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+      }
+      form input[type="submit"] {
+        background-color: #0077c9;
+        color: white;
+        padding: 10px 20px;
+        font-weight: bold;
+        border: none;
+        border-radius: 4px;
+      }
+    </style>
+    </head>
+    <body>
+      <h1>Restaurant Catalogue</h1>
+        <form action="InsertRestaurantDetails" method="post">
+            <p>Restaurant Name: <input type="text" name="identification" /></p>
+            <p>Short description: <input type="text" name="description" /></p>
+            <p>Address: <input type="text" name="address" /></p>
+            <p><label for="status">Cuisine</label>
+            <select id="status" name="cuisine">
+                <option value = "NOT REPAIRED">NOT REPAIRED</option>
+                <option value = "WIP">WIP</option>
+                <option value = "REPAIRED">REPAIRED</option>
+            </select>
+            </p>
+            <p>Contact: <input type="text" name="contact" /></p>
+            <p>Rating: <input type="number" name="rating" min="1" max="5" /></p>
+            <p><input type="submit" /></p>
+        </form>
+    </body>
+</html>

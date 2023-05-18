@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Restaurant Search</title>
+</head>
+<body>
+<form action="GetRestaurantDetails" method="post">
+<p>Restaurant name: <input type="text" name="keyword" /></p>
+<p><input type="submit" /></p>
+</form>
+</body>
+</html>

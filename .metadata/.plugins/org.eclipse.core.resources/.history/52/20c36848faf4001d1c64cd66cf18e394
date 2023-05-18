@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Database</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {background-color: #f5f5f5;}
+    </style>
+</head>
+<body>
+    <h1>Restaurant Database</h1>
+
+    <table id="restaurantTable">
+        <tr>
+            <th>Identification</th>
+            <th>Description</th>
+            <th>Address</th>
+            <th>Cuisine</th>
+            <th>Contact</th>
+            <th>Rating</th>
+        </tr>
+        <!-- Data will be inserted here using JavaScript -->
+    </table>
+
+    <script>
+        // Function to fetch data from the servlet and populate the table
+        function fetchData() {
+            fetch('MyServletDB')
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById('restaurantTable');
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        const identificationCell = document.createElement('td');
+                        identificationCell.textContent = item.IDENTIFICATION;
+                        row.appendChild(identificationCell);
+                        const descriptionCell = document.createElement('td');
+                        descriptionCell.textContent = item.DESCRIPTION;
+                        row.appendChild(descriptionCell);
+                        const addressCell = document.createElement('td');
+                        addressCell.textContent = item.ADDRESS;
+                        row.appendChild(addressCell);
+                        const cuisineCell = document.createElement('td');
+                        cuisineCell.textContent = item.CUISINE;
+                        row.appendChild(cuisineCell);
+                        const contactCell = document.createElement('td');
+                        contactCell.textContent = item.CONTACT;
+                        row.appendChild(contactCell);
+                        const ratingCell = document.createElement('td');
+                        ratingCell.textContent = item.RATING;
+                        row.appendChild(ratingCell);
+                        table.appendChild(row);
+                    });
+                })
+                .catch(error => console.log(error));
+        }
+
+        // Fetch data when the page is loaded
+        window.addEventListener('load', fetchData);
+    </script>
+</body>
+</html>

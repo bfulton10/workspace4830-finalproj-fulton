@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Restaurant Data</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+  <script>
+    window.onload = function() {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+          var data = JSON.parse(this.responseText);
+          displayData(data);
+        }
+      };
+      xhr.open("GET", "MyServletDB", true);
+      xhr.send();
+    };
+    
+    function displayData(data) {
+      var table = document.createElement("table");
+      var thead = document.createElement("thead");
+      var tbody = document.createElement("tbody");
+      var headerRow = document.createElement("tr");
+      
+      // Create table header
+      var fields = ["IDENTIFICATION", "DESCRIPTION", "ADDRESS", "CUISINE", "CONTACT", "RATING"];
+      fields.forEach(function(field) {
+        var th = document.createElement("th");
+        th.textContent = field.toUpperCase();
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+      
+      // Create table rows
+      data.forEach(function(rowData) {
+        var row = document.createElement("tr");
+        
+        fields.forEach(function(field) {
+          var cell = document.createElement("td");
+          cell.textContent = rowData[field];
+          row.appendChild(cell);
+        });
+        
+        tbody.appendChild(row);
+      });
+      
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      
+      // Append table to a container element
+      var container = document.getElementById("data-container");
+      container.appendChild(table);
+    }
+  </script>
+</head>
+<body>
+  <div id="data-container"></div>
+</body>
+</html>

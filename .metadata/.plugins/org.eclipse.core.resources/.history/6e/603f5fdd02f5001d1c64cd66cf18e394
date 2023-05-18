@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Database</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {background-color: #f5f5f5;}
+    </style>
+</head>
+<body>
+    <h1>Restaurant Database</h1>
+
+    <table id="myTable">
+    <tr>
+        <th>Identification</th>
+        <th>Description</th>
+        <th>Address</th>
+        <th>Cuisine</th>
+        <th>Contact</th>
+        <th>Rating</th>
+    </tr>
+    <script>
+        // Function to fetch data from the servlet and populate the table
+        function fetchData() {
+            fetch('MyServletDB')
+                .then(response => response.text())
+                .then(data => {
+                    const table = document.getElementById('restaurantTable');
+                    const rows = data.trim().split('\n');
+                    rows.forEach(row => {
+                        const columns = row.trim().split(',');
+                        if (columns.length === 6) {
+                            const rowData = {
+                                IDENTIFICATION: columns[0].trim(),
+                                DESCRIPTION: columns[1].trim(),
+                                ADDRESS: columns[2].trim(),
+                                CUISINE: columns[3].trim(),
+                                CONTACT: columns[4].trim(),
+                                RATING: columns[5].trim()
+                            };
+                            const tableRow = createTableRow(rowData);
+                            table.appendChild(tableRow);
+                        }
+                    });
+                })
+                .catch(error => console.log(error));
+        }
+
+        // Function to create a table row based on the data
+        function createTableRow(data) {
+            const row = document.createElement('tr');
+            for (const key in data) {
+                const cell = document.createElement('td');
+                cell.textContent = data[key];
+                row.appendChild(cell);
+            }
+            return row;
+        }
+
+        // Fetch data when the page is loaded
+        window.addEventListener('load', fetchData);
+    </script>
+</table>
+
+
+    <script>
+        // Function to fetch data from the servlet and populate the table
+        function fetchData() {
+            fetch('MyServletDB')
+                .then(response => response.text())
+                .then(data => {
+                    const table = document.getElementById('myTable');
+                    const rows = data.trim().split('\n');
+                    rows.forEach(row => {
+                        const columns = row.trim().split(',');
+                        if (columns.length === 6) {
+                            const rowData = {
+                                IDENTIFICATION: columns[0].trim(),
+                                DESCRIPTION: columns[1].trim(),
+                                ADDRESS: columns[2].trim(),
+                                CUISINE: columns[3].trim(),
+                                CONTACT: columns[4].trim(),
+                                RATING: columns[5].trim()
+                            };
+                            const tableRow = createTableRow(rowData);
+                            table.appendChild(tableRow);
+                        }
+                    });
+                })
+                .catch(error => console.log(error));
+        }
+
+        // Function to create a table row based on the data
+        function createTableRow(data) {
+            const row = document.createElement('tr');
+            for (const key in data) {
+                const cell = document.createElement('td');
+                cell.textContent = data[key];
+                row.appendChild(cell);
+            }
+            return row;
+        }
+
+        // Fetch data when the page is loaded
+        window.addEventListener('load', fetchData);
+    </script>
+</body>
+</html>

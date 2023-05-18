@@ -1,0 +1,126 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/MyServletDB")
+public class MyServletDB extends HttpServlet {
+private static final long serialVersionUID = 1L;
+ String dns = "ec2-34-204-91-253.compute-1.amazonaws.com";
+ String username = "bede";
+ String password = "bedem777";
+ Connection connection = null;
+ Statement statement = null;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public MyServletDB() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+/**
+ * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse 
+response)
+ */
+protected void doGet(HttpServletRequest request, HttpServletResponse 
+response) throws ServletException, IOException {
+// TODO Auto-generated method stub
+ PrintWriter out = response.getWriter();
+ try {
+        Class.forName("com.mysql.jdbc.Driver");
+    } catch (ClassNotFoundException e) {
+        System.out.println("Where is your MySQL JDBC Driver?");
+        e.printStackTrace();
+        return;
+    }
+    try {
+        connection = DriverManager.getConnection("jdbc:mysql://"+ 
+dns+":3306/myDBase", username, password);
+    } catch (SQLException e) {
+        System.out.println("Connection Failed!:\n" + e.getMessage());
+    }
+    if (connection != null) {
+        System.out.println("SUCCESS!!!! You made it, take control your database now!");
+        System.out.println("Creating statement...");
+        try {
+statement = connection.createStatement();
+} catch (SQLException e3) {
+// TODO Auto-generated catch block
+e3.printStackTrace();
+}
+        String sql;
+        sql = "SELECT * FROM myTable";
+        ResultSet rs = null;
+try {
+rs = statement.executeQuery(sql);
+} catch (SQLException e2) {
+// TODO Auto-generated catch block
+e2.printStackTrace();
+}
+        //STEP 5: Extract data from result set
+        try {
+while (rs.next()) {
+    //Retrieve by column name
+String identification = rs.getString("IDENTIFICATION");
+String description = rs.getString("DESCRIPTION");
+String address = rs.getString("ADDRESS");
+String cuisine = rs.getString("CUISINE");
+String contact = rs.getString("CONTACT");
+String rating = rs.getString("RATING");
+    
+//Display values
+out.println("IDENTIFICATION: " + identification + ", ");
+out.println("DESCRIPTION: " + description + ", ");
+out.println("ADDRESS: " + address + ", ");
+out.println("CUISINE: " + cuisine + ", ");
+out.println("CONTACT: " + contact + ", ");
+out.println("RATING: " + rating + ", ");
+}
+} catch (SQLException e1) {
+// TODO Auto-generated catch block
+e1.printStackTrace();
+}
+        //STEP 6: Clean-up environment
+        try {
+rs.close();
+} catch (SQLException e) {
+// TODO Auto-generated catch block
+e.printStackTrace();
+}
+        try {
+statement.close();
+} catch (SQLException e) {
+// TODO Auto-generated catch block
+e.printStackTrace();
+}
+        try {
+connection.close();
+} catch (SQLException e) {
+// TODO Auto-generated catch block
+e.printStackTrace();
+}
+    } 
+   
+    else {
+        System.out.println("FAILURE! Failed to make connection!");
+    }
+}
+/**
+ * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse 
+response)
+ */
+protected void doPost(HttpServletRequest request, HttpServletResponse 
+response) throws ServletException, IOException {
+// TODO Auto-generated method stub
+doGet(request, response);
+}
+}

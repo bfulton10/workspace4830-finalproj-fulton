@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert Restaurant Details</title>
+</head>
+<body>
+    <form action="InsertRestaurantDetails" method="post">
+        <p>Identification: <input type="text" name="identification" /></p>
+        <p>Description: <input type="text" name="description" /></p>
+        <p>Address: <input type="text" name="address" /></p>
+        <p>Cuisine: <input type="text" name="cuisine" /></p>
+        <p>Contact: <input type="text" name="contact" /></p>
+        <p>Rating: <input type="text" name="rating" /></p>
+        <p><input type="submit" /></p>
+    </form>
+    
+    <form action="http://localhost:8080/FinalProj/MyServletDB" method="post">
+        <input type="submit" value="Go to Database">
+    </form>
+</body>
+</html>
